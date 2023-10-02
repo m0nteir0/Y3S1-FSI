@@ -1,4 +1,4 @@
-# CTF Semana #3 (Wordpress CVE)
+# Semana #3: CTF Wordpress CVE
 
 ## Tarefas
 
