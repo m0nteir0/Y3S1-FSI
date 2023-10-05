@@ -84,3 +84,10 @@
 >
 > Pode-se verificar que em todas as situações descritas o output do programa `myprog` vai ser o output da função sleep() definida por nós. 
 
+### Tarefa 8
+
+> Nesta tarefa é-nos apresentado um programa que devemos tornar Set-UID. O contexto desta tarefa diz-nos que temos acesso a um programa 
+
+| <img src="images/rm1.png"> | <img src="images/rm2.png"> |
+| :--: | :--: |
+|  |  |
