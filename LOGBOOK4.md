@@ -23,7 +23,7 @@
 
 
 ### Tarefa 4 
-> Com o objetivo de confirmar se as variáveis de ambiente tinham sido passadas para o novo programa chamado, quisemos comparar os resultados do comando
+> Com o objetivo de confirmar se as variáveis de ambiente tinham sido passadas para o novo programa executado, quisemos comparar os resultados do comando
 > ````bash
 > $ env
 > ```` 
@@ -31,7 +31,7 @@
 > <img src="images/log4t4_pt1.png"> <br>
 > Para tal, corremos os seguintes comandos no terminal e analisamos os ficheiros com os respetivos outputs. <br>
 > <img src="images/log4t4_pt2.png"> <br>
-> Desta análise tirámos que as variáveis de ambiente do processo atual foram passadas para o novo programa chamado, confirmando assim o comportamento das variáveis de ambiente quando chamamos a função 'system()' descrito no enunciado. <br>
+> Desta análise tirámos que as variáveis de ambiente do processo atual foram passadas para o novo programa executado, confirmando assim o comportamento das variáveis de ambiente quando chamamos a função 'system()' descrito no enunciado. <br>
 
 ### Tarefa 5
 
