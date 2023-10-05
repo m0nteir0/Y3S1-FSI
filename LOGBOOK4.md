@@ -3,42 +3,51 @@
 ## Tarefas
 
 ### Tarefa 1
+
 > Como indicado no enunciado do lab, o comando `printenv` lista todas as variáveis de ambiente do sistema e o comando `printenv VAR` indica o valor da variável de ambiente VAR. <br>
-> Por exemplo para a variavel de ambiente "PWD", temos o seguinte output: <br> 
-> ````bash
+> Por exemplo para a variavel de ambiente "PWD", temos o seguinte output: <br>
+>
+> ```bash
 > $ printenv PWD # /home/seed
-> ````
+> ```
 
 ### Tarefa 2
-> Correndo o código fornecido, obtivemos as variáveis de ambiente do processo pai e do processo filho em 2 ficheiros diferentes. A diferença entre os dois deu um resultado vazio, pelo que tirámos a conclusão de que **o filho herda as variáveis de ambiente do pai** depois de executar o `fork()`. Assim, não há diferença no ambiente de execução. <br>
-<img height="50" src="images/l4t2.png">
 
+> Correndo o código fornecido, obtivemos as variáveis de ambiente do processo pai e do processo filho em 2 ficheiros diferentes. A diferença entre os dois deu um resultado vazio, pelo que tirámos a conclusão de que **o filho herda as variáveis de ambiente do pai** depois de executar o `fork()`. Assim, não há diferença no ambiente de execução. <br>
+> <img height="50" src="images/l4t2.png">
 
 ### Tarefa 3
+
 > O código fornecido no enunciado possui o terceiro argumento do comando `execve` a NULL e, desta forma, as variáveis de ambiente não são passadas ao programa chamado, originando um output vazio. <br>
 > Substituindo NULL pela variável "environ", entendemos que as variaveis de ambiente serão explicitamente passadas do processo atual para o novo programa. <br>
-<img height = "250" src="images/log4t3.png">
-<img height = "500" src="images/log4t3_part2.png">
-
-
+> <img height = "250" src="images/log4t3.png">
+> <img height = "500" src="images/log4t3_part2.png">
 
 ### Tarefa 4 -> CONFIRMAR
+
 ---
+
 APAGAR ISTO
+
 > Para confirmar o comportamento indicado no enunciado: <br>
-````
+
+```
 If you look at the implementation of the system() function, you will see that it uses execl() to
 execute /bin/sh; execl() calls execve(), passing to it the environment variables array. Therefore,
 using system(), the environment variables of the calling process is passed to the new program /bin/sh.
-````
+```
+
 > Compilámos e corremos o código específico fornecido e verificamos que as variaveis de ambiente do processo atual foram passadas para o novo programa chamado, ... <br>
+
 ---
+
 > Com o objetivo de confirmar se as variáveis de ambiente tinham sido passadas para o novo programa chamado, quisemos comparar os resultados do comando
-> ````bash
+>
+> ```bash
 > $ env
-> ```` 
-> com o output do programa 'mysystem.c' presente no enunciado: <br>
-> <img src="images/log4t4_pt1.png"> <br>
+> ```
+>
+> com o output do programa 'mysystem.c' presente no enunciado: <br> > <img src="images/log4t4_pt1.png"> <br>
 > Para tal, corremos os seguintes comandos no terminal e analisamos os ficheiros com os respetivos outputs:
 > <img src="images/log4t4_pt2.png">
 > Desta análise tirámos que as variáveis de ambiente do processo atual foram passadas para o novo programa chamado, confirmando assim o comportamento das variáveis de ambiente quando chamamos a função 'system()' descrito no enunciado. <br>
@@ -48,9 +57,24 @@ using system(), the environment variables of the calling process is passed to th
 > Como foi pedido, criamos um programa que mostra todas as variaveis de ambiente do processo atual, definimos "root" como proprietário do programa e tornamo-lo num programa SET-UID. Um programa SET-UID assume os privilégios do proprietário do programa. <br>
 > Demos "export" das variáveis listadas e o programa foi executado de novo.Verificámos que a variável LD_LIBRARY_PATH não constava na lista de variaveis de ambiente do programa. Esta variavel permite definir um "path" onde o programa pode procurar por bibliotecas dinamicas partilhadas e, desta forma, seria possivel executar um programa malicioso através de uma das bibliotecas utilizadas. <br>
 
-
 ### Tarefa 6
+
 > Nesta tarefa, nós exploramos os riscos potenciais de usar a função `system()` dentro de programas Set-UID. Aprendemos que o comportamento do programa shell pode ser influenciado por variaveis de ambiente fornecidas pelo utilizador, por exemplo "PATH", que pode ser manipulada por utilizadores maliciosos. <br>
 > Para demonstra-lo, compilamos o programa Set-UID para executar ´ls´ usando um path relativo em vez de um path absoluto. Tornámos "root" o proprietário do programa e tornamo-lo um programa Set-UID. Ao alterar a variavel "PATH", conseguimos executar o nosso próprio código em vez de `/bin/ls`, mostrando assim a vulnerabilidade a nível de segurança. <br>
 > Esta tarefa destacou a importância de considerar este género de implicações, especialmente ao lidar com funções privilegiadas como system() em programas Set-UID. <br>
 
+### Tarefa 7
+
+> Nesta tarefa exploramos os riscos associados à interação dos programas **Set-UID** com a variável de ambiente **LD_PRELOAD**. As variáveis de ambiente `LD_PRELOAD`, `LD_LIBRARY_PATH`, e outras do formato `LD_*` influenciam o comportamento do loader/linker dinâmico o, neste caso, nos permite dar override a funcções da biblioteca de funções de C.
+
+> Criando uma função chamada `sleep()` que dará override à função de mesmo nome na `libc` e depois compilando o seu ficheiro dando-lhe depois link a uma biblioteca partilhada (./libmylib.so.1.0.1), podemos alterar o valor da variável de ambiente **LD_PRELOAD=./libmylib.so.1.0.1** fazendo assim com que, quando chamada a função sleep o sistema operativo procure por esta função primeiramente nesta biblioteca em vez de na biblioteca `libc`.
+
+| <img src="images/mylib.png"> | <img src="images/myprog.png"> |
+| ---------------------------- | ----------------------------- |
+| mylib.c                      | myprog.c                      |
+
+> Ao correr o programa `myprog` verifica-se que, de facto, a função corrida foi a função sleep() definida por nós em vez da função da libc sleep().
+
+|              <img src="images/exec1.png">               |               <img src="images/exec2.png">               |
+| :-----------------------------------------------------: | :------------------------------------------------------: |
+| Running myprog as a normal program and as a normal user | Running myprog as a Set-UID program and as a normal user |
