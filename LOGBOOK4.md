@@ -25,9 +25,9 @@
 ### Tarefa 4 -> CONFIRMAR
 > Para confirmar o comportamento indicado no enunciado: <br>
 ````
-If you look at the implementation of the system() function, you will see that it uses execl() to
+"If you look at the implementation of the system() function, you will see that it uses execl() to
 execute /bin/sh; execl() calls execve(), passing to it the environment variables array. Therefore,
-using system(), the environment variables of the calling process is passed to the new program /bin/sh.
+using system(), the environment variables of the calling process is passed to the new program /bin/sh."
 ````
 > Compilámos e corremos o código específico fornecido e verificamos que as variaveis de ambiente do processo atual foram passadas para o novo programa chamado, ... <br>
 
@@ -35,11 +35,11 @@ using system(), the environment variables of the calling process is passed to th
 ### Tarefa 5
 
 > Como foi pedido, criamos um programa que mostra todas as variaveis de ambiente do processo atual, definimos "root" como proprietário do programa e tornamo-lo num programa SET-UID. Um programa SET-UID assume os privilégios do proprietário do programa. <br>
-> Demos "export" das variáveis listadas e o programa foi executado de novo.Verificámos que a variável LD_LIBRARY_PATH não constava na lista de variaveis de ambiente do programa. Esta variavel permite definir um "path" onde o programa pode procurar por bibliotecas dinamicas partilhadas e, desta forma, seria possivel executar um programa malicioso através de uma das bibliotecas utilizadas. <br>
+> Demos "export" das variáveis listadas e o programa foi executado de novo. Verificámos que a variável LD_LIBRARY_PATH não constava na lista de variaveis de ambiente do programa. Esta variavel permite definir um "path" onde o programa pode procurar por bibliotecas dinamicas partilhadas e, desta forma, seria possivel executar um programa malicioso através de uma das bibliotecas utilizadas. <br>
 
 
 ### Tarefa 6
-> Nesta tarefa, nós exploramos os riscos potenciais de usar a função `system()` dentro de programas Set-UID. Aprendemos que o comportamento do programa shell pode ser influenciado por variaveis de ambiente fornecidas pelo utilizador, por exemplo "PATH", que pode ser manipulada por utilizadores maliciosos. <br>
-> Para demonstra-lo, compilamos o programa Set-UID para executar ´ls´ usando um path relativo em vez de um path absoluto. Tormámos "root" o proprietário do programa e tornamo-lo um programa Set-UID. Ao alterar a variavel "PATH", conseguimos executar o nosso próprio código em vez de `/bin/ls`, mostrando assim a vulnerabilidade a nível de segurança. <br>
+> Nesta tarefa, nós exploramos os  potenciais riscos de usar a função `system()` dentro de programas Set-UID. Aprendemos que o comportamento do programa shell pode ser influenciado por variaveis de ambiente fornecidas pelo utilizador, por exemplo "PATH", que pode ser manipulada por utilizadores maliciosos. <br>
+> Para demonstra-lo, compilamos o programa Set-UID para executar ´ls´ usando um path relativo em vez de um path absoluto. Tornámos "root" o proprietário do programa e tornamo-lo num programa Set-UID. Ao alterar a variavel "PATH", conseguimos executar o nosso próprio código em vez de `/bin/ls`, mostrando assim a vulnerabilidade. <br>
 > Esta tarefa destacou a importância de considerar este género de implicações, especialmente ao lidar com funções privilegiadas como system() em programas Set-UID. <br>
 
