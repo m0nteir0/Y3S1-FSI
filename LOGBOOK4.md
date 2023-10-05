@@ -23,6 +23,8 @@
 
 
 ### Tarefa 4 -> CONFIRMAR
+---
+APAGAR ISTO
 > Para confirmar o comportamento indicado no enunciado: <br>
 ````
 If you look at the implementation of the system() function, you will see that it uses execl() to
@@ -30,7 +32,16 @@ execute /bin/sh; execl() calls execve(), passing to it the environment variables
 using system(), the environment variables of the calling process is passed to the new program /bin/sh.
 ````
 > Compilámos e corremos o código específico fornecido e verificamos que as variaveis de ambiente do processo atual foram passadas para o novo programa chamado, ... <br>
-
+---
+> Com o objetivo de confirmar se as variáveis de ambiente tinham sido passadas para o novo programa chamado, quisemos comparar os resultados do comando
+> ````bash
+> $ env
+> ```` 
+> com o output do programa 'mysystem.c' presente no enunciado: <br>
+> <img src="images/log4t4_pt1.png"> <br>
+> Para tal, corremos os seguintes comandos no terminal e analisamos os ficheiros com os respetivos outputs:
+> <img src="images/log4t4_pt2.png">
+> Desta análise tirámos que as variáveis de ambiente do processo atual foram passadas para o novo programa chamado, confirmando assim o comportamento das variáveis de ambiente quando chamamos a função 'system()' descrito no enunciado. <br>
 
 ### Tarefa 5
 
@@ -40,6 +51,6 @@ using system(), the environment variables of the calling process is passed to th
 
 ### Tarefa 6
 > Nesta tarefa, nós exploramos os riscos potenciais de usar a função `system()` dentro de programas Set-UID. Aprendemos que o comportamento do programa shell pode ser influenciado por variaveis de ambiente fornecidas pelo utilizador, por exemplo "PATH", que pode ser manipulada por utilizadores maliciosos. <br>
-> Para demonstra-lo, compilamos o programa Set-UID para executar ´ls´ usando um path relativo em vez de um path absoluto. Tormámos "root" o proprietário do programa e tornamo-lo um programa Set-UID. Ao alterar a variavel "PATH", conseguimos executar o nosso próprio código em vez de `/bin/ls`, mostrando assim a vulnerabilidade a nível de segurança. <br>
+> Para demonstra-lo, compilamos o programa Set-UID para executar ´ls´ usando um path relativo em vez de um path absoluto. Tornámos "root" o proprietário do programa e tornamo-lo um programa Set-UID. Ao alterar a variavel "PATH", conseguimos executar o nosso próprio código em vez de `/bin/ls`, mostrando assim a vulnerabilidade a nível de segurança. <br>
 > Esta tarefa destacou a importância de considerar este género de implicações, especialmente ao lidar com funções privilegiadas como system() em programas Set-UID. <br>
 
