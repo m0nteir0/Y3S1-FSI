@@ -22,25 +22,15 @@
 
 
 
-### Tarefa 4 -> CONFIRMAR
----
-APAGAR ISTO
-> Para confirmar o comportamento indicado no enunciado: <br>
-````
-If you look at the implementation of the system() function, you will see that it uses execl() to
-execute /bin/sh; execl() calls execve(), passing to it the environment variables array. Therefore,
-using system(), the environment variables of the calling process is passed to the new program /bin/sh.
-````
-> Compilámos e corremos o código específico fornecido e verificamos que as variaveis de ambiente do processo atual foram passadas para o novo programa chamado, ... <br>
----
+### Tarefa 4 
 > Com o objetivo de confirmar se as variáveis de ambiente tinham sido passadas para o novo programa chamado, quisemos comparar os resultados do comando
 > ````bash
 > $ env
 > ```` 
 > com o output do programa 'mysystem.c' presente no enunciado: <br>
 > <img src="images/log4t4_pt1.png"> <br>
-> Para tal, corremos os seguintes comandos no terminal e analisamos os ficheiros com os respetivos outputs:
-> <img src="images/log4t4_pt2.png">
+> Para tal, corremos os seguintes comandos no terminal e analisamos os ficheiros com os respetivos outputs. <br>
+> <img src="images/log4t4_pt2.png"> <br>
 > Desta análise tirámos que as variáveis de ambiente do processo atual foram passadas para o novo programa chamado, confirmando assim o comportamento das variáveis de ambiente quando chamamos a função 'system()' descrito no enunciado. <br>
 
 ### Tarefa 5
