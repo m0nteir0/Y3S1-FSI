@@ -11,7 +11,7 @@ A organização dos ficheiros necessários para a resolução do CTF é a seguin
 |      |       |  -  my_cron_script
 |  -  tmp
 |      |
-|  -  home   
+|  -  home
 |      |  -  flag_reader
 |      |       |  -  admin_note.txt
 |      |       |  -  env
@@ -22,6 +22,7 @@ A organização dos ficheiros necessários para a resolução do CTF é a seguin
 |  -  flags
 |      |  -  flag.txt
 ```
+
 ## Pistas
 
 No moodle, é-nos apresentada a seguinte tarefa:
@@ -47,6 +48,7 @@ Rapidamente conseguimos encontrar o ficheiro `/etc/cron.d/my_cron_script`. Este 
 ```bash
 * * * * * flag_reader /bin/bash -c "/home/flag_reader/my_script.sh > /home/flag_reader/last_log"
 ```
+
 Este script é executado a cada minuto com o perfil do utilizador `flag_reader`. O script executa o script `my_script.sh` e redireciona o output para o ficheiro `last_log`.
 
 ### Pista 2
@@ -82,6 +84,7 @@ int main() {
     return 0;
 }
 ```
+
 </td>
 <td>
 
@@ -97,6 +100,7 @@ fi
 printenv
 exec /home/flag_reader/reader
 ```
+
 </td>
 </tr>
 <tr>
@@ -104,12 +108,14 @@ exec /home/flag_reader/reader
 <center>
 
 `main.c`
+
 </center>
 </td>
 <td>
 <center>
 
 `my_script.sh`
+
 </center>
 </td>
 </tr>
@@ -118,9 +124,9 @@ exec /home/flag_reader/reader
 Ao corrermos o ficheiro `reader` podemos ver que este é o binário do ficheiro `main.c` compilado. Analisando o script `my_script.sh` (o script corrido pelo cron jobs com as permissões flag_reader) podemos verificar que este nos permite seguir por dois exploits diferentes:
 
 1. O primeiro exploit baseia-se no criação de um ficheiro binário chamado `printenv` e a mudança da variável de ambiente `PATH` para /tmp de modo a que o script `my_script.sh` execute o nosso ficheiro em vez da função printenv situada em **/bin/printenv**.
-2. O segundo exploit baseia-se na criação de uma biblioteca partilhada que contenha uma implementação da função `access`. Devermos *linkar* o nosso programa à biblioteca de **C** de modo a, alterando a variável de ambiente `LD_PRELOAD` darmos prioridade a esta nossa biblioteca em vez da biblioteca de **C**.
+2. O segundo exploit baseia-se na criação de uma biblioteca partilhada que contenha uma implementação da função `access`. Devermos _linkar_ o nosso programa à biblioteca de **C** de modo a, alterando a variável de ambiente `LD_PRELOAD` darmos prioridade a esta nossa biblioteca em vez da biblioteca de **C**.
 
-Dentro do programa **C** que criarmos (seja seguido qualquer um dos exploits) poderemos passar os conteúdos do ficheiro `/flags/flag.txt` para um outro ficheiro de texto uma vez que este programa será executado com as permissões **flag_reader**. O ficheiro para o qual passamos o conteúdo deverá ser criado anteriormente na pasta `/tmp` e as suas permissões deverão ser alteradas de modo a permitirem que o utilizador **flag_reader** possa escrever no mesmo. 
+Dentro do programa **C** que criarmos (seja seguido qualquer um dos exploits) poderemos passar os conteúdos do ficheiro `/flags/flag.txt` para um outro ficheiro de texto uma vez que este programa será executado com as permissões **flag_reader**. O ficheiro para o qual passamos o conteúdo deverá ser criado anteriormente na pasta `/tmp` e as suas permissões deverão ser alteradas de modo a permitirem que o utilizador **flag_reader** possa escrever no mesmo.
 
 ## Exploits
 
@@ -136,7 +142,7 @@ Dentro do programa **C** que criarmos (seja seguido qualquer um dos exploits) po
 
 ### Exploit 1 - access
 
-TODO -> Completar
+Uma maneira de nos defendermos deste ataque seria compilando o ficheiro `main.c` estáticamente - em vez de dinâmicamente, como é feito - uma vez que, ao compilar um ficheiro estáticamente todo o código necessário para a sua execução é incluído fisicamente no seu binário. Deste modo, mesmo que a variável de ambiente `LD_PRELOAD` seja alterada, o programa irá sempre executar a função `access` do sistema.
 
 ### Exploit 2 - printenv
 
