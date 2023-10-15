@@ -40,7 +40,9 @@
 
 ### Tarefa 3
 
-> Nesta tarefa, criamos o ficheiro `badfile`
+> Nesta tarefa, criamos o ficheiro `badfile` inicialmente vazio. De seguida, corremos o código em modo debug e descobrimos o endereço de retorno da função `bof()` relativamente ao início do buffer, apos colocar um breakpoint na função `bof()` usando o debugger (`gdb`). Também obtivemos o valor do endereço do início do buffer.
+> Com os dois endereços obtidos, colocamos na variavel `shellcode` o shellcode 32-bits, alteramos a variavel start com o valor `517-len(shellcode)`  e preenchemos o content com a `shellcode`  (desde `start` até `start+len(shellcode)`).
+> O novo endereço de retorno também foi calculado com base no endereço do ebp (endereço de retorno) e no valor registado em `start`. Por fim, o `offset` obteve-se a partir da diferença entre o endereço de retorno e o endereço do início do buffer.
 
 
 ### Task 4
