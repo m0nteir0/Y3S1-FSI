@@ -71,8 +71,6 @@
 > Por fim, escrevemos o conteúdo do array `content` no ficheiro `badfile`.
 
 ![Alt text](images/logbook5/log5t3_pt1.png)
-Isto e a root shell
-![Alt text](images/logbook5/log5t3_pt2.png)
 
 ### Task 4
 
@@ -81,3 +79,5 @@ Isto e a root shell
 ```
 
 ```
+
+![Alt text](images/logbook5/log5t3_pt2.png)
