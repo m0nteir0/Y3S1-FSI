@@ -22,11 +22,13 @@
 
 ### Tarefa 1
 
-> Compilámos o ficheiro call_shellcode.c e gerou ficheiros binários: `a64.out` e `a32.out.` <br> > <img src="image.png">
+> Compilámos o ficheiro call_shellcode.c e gerou ficheiros binários: `a64.out` e `a32.out.`
+>
+> <img src="images/logbook5/t1_1.png">
 > Corremos ambos e o resultado foi semelhante - Abrimos uma shell no diretório onde o programa foi executado.
 
 > //TODO -> N FUNCIONA C O EXECSTACK
-> ![Alt text](image-1.png)
+> ![Alt text](images/image-1.png)
 
 > <img src="i">
 

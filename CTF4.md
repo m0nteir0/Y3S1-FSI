@@ -132,11 +132,11 @@ Dentro do programa **C** que criarmos (seja seguido qualquer um dos exploits) po
 
 ### Exploit 1 - access
 
-<img src="images/ctf4-exploit1.png">
+<img src="images/ctf4/exploit1.png">
 
 ### Exploit 2 - printenv
 
-<img src="images/ctf4-exploit2.png">
+<img src="images/ctf4/exploit2.png">
 
 ## Como defender um sistema estes ataques
 
