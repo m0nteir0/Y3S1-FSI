@@ -44,3 +44,5 @@
 > ````
 > - Se a opção wcj_emails_verification_redirect_on_success estiver definida como 'yes' e os dados enviados no parâmetro wcj_verify_email forem válidos, certas funções (wp_set_current_user e wp_set_auth_cookie) são executadas. Isto gera uma sessão autenticada como o utilizador alvo, efetivamente contornando a autenticação e concedendo acesso à conta alvo. Estas opções estão definidas como 'yes' por *default*.
 > - Com a exploração bem sucedida, ganhámos acesso administrativo ao site. Acedemos ao [link](http://ctf-fsi.fe.up.pt:5001/wp-admin/edit.php) do enunciado e rapidamente nos deparámos com a flag presente num post privado. <br>
+
+

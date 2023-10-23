@@ -1,4 +1,4 @@
-# Semana #5
+# Semana #5 e #6
 
 ## Buffer-Overflow Attack Lab: Tarefas
 
@@ -26,13 +26,9 @@
 >
 > <img src="images/logbook5/t1_1.png">
 > Corremos ambos e o resultado foi semelhante - Abrimos uma shell no diretório onde o programa foi executado.
-
-> //TODO -> N FUNCIONA C O EXECSTACK
+>
 > ![Alt text](images/image-1.png)
 
-> <img src="i">
-
-> <img src="i">
 
 ### Tarefa 2
 
@@ -41,8 +37,8 @@
 
 ### Tarefa 3
 
-> Nesta tarefa, criamos o ficheiro `badfile` inicialmente vazio. De seguida, corremos o código em modo debug e descobrimos o endereço de retorno da função `bof()` relativamente ao início do buffer, apos colocar um breakpoint na função `bof()` usando o debugger (`gdb`). Também obtivemos o valor do endereço do início do buffer.
-> <img>
+> Nesta tarefa, criamos o ficheiro `badfile` inicialmente vazio. De seguida, corremos o código em modo debug e descobrimos o endereço de retorno da função `bof()` relativamente ao início do buffer, apos colocar um breakpoint na função `bof()` usando o debugger (`gdb`). Também obtivemos o valor do endereço do início do buffer. <br>
+> <img src="/images/logbook5/log5t3_p1.png"> <br>
 > Com os dois endereços obtidos, colocamos na variavel `shellcode` o _shellcode 32-bits_. Criamos com array de bytes com o _length_ máximo lido pelo ficheiro do porgrama `stack.c` (517), com todos os bytes inicializados como `NOP` (`0x90`).
 >
 > ```python
@@ -54,13 +50,13 @@
 > O novo endereço de retorno também foi calculado com base no endereço do ebp (frame pointer) e no valor registado em `start`, de modo a que este fique a apontar para o início do _shellcode_.
 >
 > ```python
-> // TODO: ret = METER AS CONTAS DO ENDEREÇO DO RETURN
+>  ret = 0xffffc438 + start
 > ```
 >
 > Por fim, o `offset` obteve-se a partir da diferença entre o endereço de retorno e o endereço do início do buffer.
 >
 > ```python
-> // TODO: offset = METER AS CONTAS DO OFFSET
+> offset = 0xffffc438 - 0xffffc3cc + 4
 > ```
 >
 > Este offset permite-no saber qual é o endereço do retorno, para o conseguirmo substituir pelo novo endereço de retorno calculado anteriormente, que apontará para o _shellcode_.
@@ -71,15 +67,25 @@
 > ```
 >
 > Por fim, escrevemos o conteúdo do array `content` no ficheiro `badfile`.
-
-![Alt text](images/logbook5/log5t3_pt1.png)
+>
+>![Alt text](images/logbook5/log5t3_pt1.png)
 
 ### Task 4
 
-> Apesar de os addresses serem diferentes, a diferença entre eles será sempre a mesma, por isso podemos usar o offset calculado na task 3.
-
-```
-
-```
-
-![Alt text](images/logbook5/log5t3_pt2.png)
+> Nesta task temos um obstáculo, não fazer o ataque sabendo o tamanho real do buffer uma vez que em circunstâncias normais, este valor pode ser muito difícil de obter. Deste modo, o objetivo deste ataque é conseguir conseguir uma shell apenas sabendo que o tamanho do buffer está entre 100-200 bytes. Para tal, tivemos de alterar ligeiramente o nosso ficheiro `exploit.py`.
+> Em vez de apenas escrevermos o endereço no endereço do return vamos escrever em vários endereços (todos estes múltiplos de 4 devido ao alinhamento da memória) começando 100 bytes após o início do buffer.   
+> 
+> ```python
+> # Decide the return address value
+> # and put it somewhere in the payload
+> ret = 0xffffc7ac + start   # Change this number
+> offset = 100  #0xffffc84c - 0xffffc7e0 + 4 # Change this number
+>
+> for i in range(0, 100, 4):
+>    L = 4  # Use 4 for 32-bit address and 8 for 64-bit address
+>    content[offset + i : offset + i + L] = (ret).to_bytes(L, byteorder="little")
+>```
+>
+> Isto fará com que a chance de o return apontar para o nosso _shellcode_ seja muito maior. Por fim, corremos o programa e obtivemos uma shell com acesso root. 
+>
+>![Alt text](images/logbook5/log5t3_pt2.png)
