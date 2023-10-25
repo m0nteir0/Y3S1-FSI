@@ -9,10 +9,20 @@ Antes de comecar o desenvolvimento deste laboratório desligamos a randomizaçã
 $ sudo sysctl -w kernel.randomize_va_space=0
 ```
 
+Compilamos o código e fizemos a instalação como indicados, aparecendo o seguinte warning:
+
+<img src="./images/logbook7/log7t0_pt1.png">
+
+Depois, corremos o comando `docker-compose up` para iniciar os containers e, de seguida, os comandos `docker ps` e `docksh <id>` <br>
+<img src="./images/logbook7/log7t0_pt2.png"><br>
+iniciando assim uma shell nesse container. 
+
+
 # Tarefa 1
 Nesta tarefa, o objetivo é fornecer um dado input ao servidor, de tal forma que o programa crashe quando o tentar imprimir na função `myprintf()`. 
 (...)
 Por não verificarmos a mensagem `Returned properly`, concluímos que o programa crashou.
+
 
 # Tarefa 2
 
