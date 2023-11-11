@@ -1,4 +1,4 @@
-# Format String 
+# Format String - TO FINISH
 
 ## Desafio 1 - Pistas
 É nos fornecido um ficheiro zip, com um executável e um código fonte. Ambos servem para tentar obter a 'dummy flag' localmente para depois usar o exploit na port 4004 do servidor ctf-fsi.fe.up.pt. Para testar o exploit localmente, basta correr o script 'exploit_example.py'.
