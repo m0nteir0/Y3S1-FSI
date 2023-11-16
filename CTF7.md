@@ -2,10 +2,9 @@
 
 ## Desafio 1 - Pistas
 É nos fornecido um ficheiro zip, com um executável e um código fonte. Ambos servem para tentar obter a 'dummy flag' localmente para depois usar o exploit na port 4004 do servidor ctf-fsi.fe.up.pt. Para testar o exploit localmente, basta correr o script 'exploit_example.py'.
-O código fonte é o seguinte:
 
-Ao corrermos checksec no executável, obtemos o seguinte:
-<img src="images/ctf7/checksec.png" alt="checksec" width="500"/>
+Ao corrermos checksec no executável, obtemos o seguinte: <br>
+<img src="images/ctf7/ctf7_p1.png"/>
 
 A stack encontra-se protegida, o que significa que não podemos fazer buffer overflows. Existem proteções do endereço de retorno usando canários, porém o binário não é randomizado.
 
@@ -17,19 +16,16 @@ scanf("%32s", &buffer);
 
 Uma vez que a flag se encontra numa variável global e através do checksec percebemos que os endereços do programa são estáticos, podemos usar o gdb para obter o endereço da flag.
 
-Ao corrermos o script 'exploit_example.py' localmente, obtemos o o pid do processo que está a correr o programa.:
+Ao corrermos o script 'exploit_example.py' localmente, obtemos o o pid do processo que está a correr o programa:
+<img src="images/ctf7/ctf7_p2.png"/>
 
-<img src="images/ctf7/pid.png" alt="pid" width="500"/>
 
-Isto vai-nos permitir dar attach ao processo com o gdb:
-
-```bash
-$ gdb attach pid 13944
-```
+Isto vai-nos permitir dar attach ao processo com o gdb:<br>
+<img src="images/ctf7/ctf7_p3.png">
 
 Ao corrermos o programa no gdb, podemos ver que o endereço da flag é 0x0804c060:
 
-<img src="images/ctf7/gdb.png" alt="gdb" width="500"/>
+<img src="images/ctf7/ctf7_p4.png"/>
 
 ## Desafio 1 - Solução
 
@@ -44,7 +40,7 @@ Este input é apenas o adress da flag em little endian, seguido de %s para que o
 
 Ao corrermos no servidor ctf-fsi.fe.up.pt, obtemos a flag:
 
-<img src="images/ctf7/flag.png" alt="flag" width="500"/>
+<img src="images/ctf7/ctf7_p5.png"/>
 
 ## Desafio 2 - Pistas
 
