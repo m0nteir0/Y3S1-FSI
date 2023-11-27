@@ -65,7 +65,7 @@ flags.close()
 À medida que o script vai gerando as chaves podemos ir correndo o seguinte comando para verificar se alguma das mensagens desencriptadas é a flag - isto apenas é possível uma vez que sabemos que a chave assume o formato `flag{...}`.
 
 ```bash
-$ cat flags.txt | grep flag{.*}
+$ cat flags.txt | grep -a flag{.*}
 ```
 
 ![Attack](images/ctf10/attack.gif)
