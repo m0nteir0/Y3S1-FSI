@@ -1,0 +1,78 @@
+# Semana 11
+
+## Becoming a certificate authority
+
+A certificate authority is an entity that issues digital certificates. A digital certificate certifies the ownership of a public key by the named subject of the certificate. This allows others (relying parties) to rely upon signatures or on assertions made about the private key that corresponds to the certified public key.
+
+<details>
+    <summary>Generated key</summary>
+    <hr>
+
+```bash
+-----BEGIN ENCRYPTED PRIVATE KEY-----
+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
+KSaKb6mPWz23R0Fv6eaieQ==
+-----END ENCRYPTED PRIVATE KEY-----
+```
+
+</details>
+
+<details>
+    <summary>What part of the certificate indicates this is a CA’s certificate?</summary>
+    <img src="images/logbook11/root-certificate.png">
+</details>
+
+<details>
+    <summary>What part of the certificate indicates this is a self-signed certificate?</summary>
+    <img src="images/logbook11/self-assigned.png">
+</details>
