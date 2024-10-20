@@ -1,5 +1,5 @@
 # Fundamentos da Segurança Informática
-## CVEs & CTFs
+## Logbooks & CTFs
 Class: 06
 
 Group: 04
